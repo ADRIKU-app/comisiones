@@ -2,22 +2,24 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de Comisiones</title>
     <link rel="stylesheet" href="ventas.css">
     <script src="ventas.js"></script>
+    <script src="utilitarios.js"></script>
 </head>
 <body>
 
     <div class="contenedor">
         <h1>Calculadora de Comisiones</h1>
 
-        <label>Salario Base:</label>
+        <label for="txtSueldoBase">Salario Base:</label>
         <input type="text" id="txtSueldoBase">
 
-        <label>Número de ventas:</label>
+        <label for="txtVentas">Número de ventas:</label>
         <input type="text" id="txtVentas">
 
-        <label>Precio del producto:</label>
+        <label for="txtPrecio">Precio del producto:</label>
         <input type="text" id="txtPrecio">
 
         <button onclick="calcular()">Calcular Comisión</button>
@@ -28,6 +30,5 @@
         <p>Total: <span id="spTotal"></span></p>
     </div>
 
-    
 </body>
 </html>
