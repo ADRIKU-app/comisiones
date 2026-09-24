@@ -1,62 +1,68 @@
-const VENTAS_BASE=5;
+const VENTAS_BASE = 5;
 
-function calcularComision(numeroVentas,precioProducto){
-    let comision=0;
+function calcularComision(numeroVentas, precioProducto) {
+    let comision = 0;
 
-    if(numeroVentas>VENTAS_BASE){
-        let ventasExtras=numeroVentas-VENTAS_BASE;
-        comision=ventasExtras*(precioProducto*0.10);
+    if (numeroVentas > VENTAS_BASE) {
+        let ventasExtras = numeroVentas - VENTAS_BASE;
+        comision = ventasExtras * (precioProducto * 0.10);
     }
 
     return comision;
 }
 
-function calcular(){
+// Nueva función genérica para validar cualquier campo
+function validarCampo(idCmp, idMsj) {
+    let valor = recuperarTexto(idCmp);
+    let cmpMsj = document.getElementById(idMsj);
+    
+    // Regla 3: No puede estar vacío
+    if (valor.trim() === "") {
+        cmpMsj.textContent = "CAMPO OBLIGATORIO";
+        return false;
+    }
+    
+    // Regla 1: Solo usar números (isNaN verifica si NO es un número)
+    if (isNaN(valor)) {
+        cmpMsj.textContent = "SOLO SE PERMITEN NÚMEROS";
+        return false;
+    }
+    
+    // Regla 2: Máximo 5 caracteres
+    if (valor.length > 5) {
+        cmpMsj.textContent = "MÁXIMO 5 CARACTERES";
+        return false;
+    }
+    
+    // Si pasa todas las validaciones, limpiamos el mensaje
+    cmpMsj.textContent = "";
+    return true;
+}
 
-    //Recuperamos propiedades de la cajas de texto
-    //Comentamos código repetitivo para limpiar nuestras líneas de código
-    /*
-    let cmpSueldoBase=document.getElementById("txtSueldoBase");
-    let cmpVentas=document.getElementById("txtVentas");
-    let cmpPrecio=document.getElementById("txtPrecio");
-    */
+function calcular() {
+    // Ejecutamos las validaciones de los tres campos
+    let sueldoValido = validarCampo("txtSueldoBase", "errSueldoBase");
+    let ventasValidas = validarCampo("txtVentas", "errVentas");
+    let precioValido = validarCampo("txtPrecio", "errPrecio");
 
-    /*
-    let sueldoBaseStr=cmpSueldoBase.value;
-    let numeroVentasStr=cmpVentas.value;
-    let precioProductosStr=cmpPrecio.value;
-    */
+    // Si alguno de los campos es inválido (false), detenemos el cálculo
+    if (sueldoValido == false || ventasValidas == false || precioValido == false) {
+        return;
+    }
 
-    //Recuperamos el valor de las cajas de texto utilizando la función de utilitarios
-    /*
-    let sueldoBaseStr=recuperarTexto("txtSueldoBase");
-    let numeroVentasStr=recuperarTexto("txtVentas");
-    let precioProductoStr=recuperarTexto("txtPrecio");
-    */
-    //Convertimos el texto a número decimal
-    let sueldoBase=recuperarFloat("txtSueldoBase");
-    let numeroVentas=recuperarFloat("txtVentas");
-    let precioProductos=recuperarFloat("txtPrecio");
+    // Convertimos el texto a número decimal
+    let sueldoBase = recuperarFloat("txtSueldoBase");
+    let numeroVentas = recuperarFloat("txtVentas");
+    let precioProductos = recuperarFloat("txtPrecio");
 
-    //Calculamos la comision
-    let comision=calcularComision(numeroVentas,precioProductos);
+    // Calculamos la comision
+    let comision = calcularComision(numeroVentas, precioProductos);
 
-    //Calculamos el sueldo + la comision
-    let total=sueldoBase+comision;
+    // Calculamos el sueldo + la comision
+    let total = sueldoBase + comision;
 
-    /*
-    let spSueldoBase=document.getElementById("spSueldoBase");
-    let spComision=document.getElementById("spComision");
-    let spTotal=document.getElementById("spTotal");
-    */
-
-    /*spSueldoBase.textContent=sueldoBase;
-    spComision.textContent=comision;
-    spTotal.textContent=total;
-    */
-
-    mostrarEnSpan("spSueldoBase",sueldoBase);
-    mostrarEnSpan("spComision",comision);
-    mostrarEnSpan("spTotal",total);
-
+    // Mostramos los resultados en los span usando utilitarios
+    mostrarEnSpan("spSueldoBase", sueldoBase.toFixed(2));
+    mostrarEnSpan("spComision", comision.toFixed(2));
+    mostrarEnSpan("spTotal", total.toFixed(2));
 }

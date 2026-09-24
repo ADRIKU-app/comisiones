@@ -54,7 +54,7 @@ label {
 /* Campos de entrada adaptados para móviles */
 input[type="text"] {
     width: 100%;
-    margin-bottom: 16px;
+    margin-bottom: 4px; /* Reducido para dar espacio al mensaje de error */
     padding: 10px 12px;
     background-color: #0f172a;
     border: 1px solid #334155;
@@ -68,6 +68,15 @@ input[type="text"] {
 input[type="text"]:focus {
     border-color: #22c55e;
     box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+/* MENSAJE DE ERROR VALIDACIONES */
+.error-msg {
+    color: #ef4444; /* Rojo de error estándar UI */
+    font-style: italic;
+    font-size: 0.75rem;
+    min-height: 16px;
+    margin-bottom: 12px; /* Margen inferior trasladado aquí desde el input */
 }
 
 /* Botón interactivo mejorado */
